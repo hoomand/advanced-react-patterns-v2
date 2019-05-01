@@ -3,14 +3,28 @@
 import React from 'react'
 // 🐨 uncomment this import to get the switch component.
 // It takes an `onClick` and an `on` prop
-// import {Switch} from '../switch'
+import {Switch} from '../switch'
 
 class Toggle extends React.Component {
   // 🐨 this toggle component is going to need to have state for `on`
+  state = {
+    on: false,
+  }
   //
   // You'll also want a method to handle when the switch is clicked
   // which will update the `on` state and call the `onToggle` prop
   // with the new `on` state.
+  _onSwitchClick = () => {
+    this.setState(
+      currentState => {
+        return {on: !currentState.on}
+      },
+      () => {
+        console.log('oh yes')
+        this.props.onToggle(this.state.on)
+      },
+    )
+  }
   //
   // 💰 this.setState(newState, callback)
   //
@@ -19,7 +33,7 @@ class Toggle extends React.Component {
   // 💯 Use a state updater function for `newState` to avoid issues with batching
   render() {
     // 🐨 here you'll want to return the switch with the `on` and `onClick` props
-    return null
+    return <Switch on={this.state.on} onClick={this._onSwitchClick} />
   }
 }
 
